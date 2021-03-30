@@ -19,3 +19,9 @@ FROM albums
 WHERE release_date >= 1990 AND release_date < 2000;
 
 SELECT *
+FROM albums
+WHERE sales < 20.00;
+
+SELECT *
+FROM albums
+WHERE genre LIKE '%Rock%';
