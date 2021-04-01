@@ -24,3 +24,7 @@ SELECT *
 FROM employees
 WHERE last_name NOT LIKE ('%qu%')
   AND last_name LIKE ('%q%');
+
+SELECT YEAR(birth_date)
+FROM employees
+LIMIT 100;
