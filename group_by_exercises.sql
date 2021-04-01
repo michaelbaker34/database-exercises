@@ -30,13 +30,3 @@ WHERE
         )
 GROUP BY gender
 ORDER BY gender;
-
-# SELECT *
-# FROM employees
-# WHERE first_name = 'Irena'
-# GROUP BY gender;
-
-# SELECT COUNT(hire_date), gender
-# FROM employees
-# WHERE first_name = 'Irena'
-# GROUP BY gender;
