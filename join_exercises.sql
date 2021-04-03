@@ -8,9 +8,17 @@ FROM users
              ON users.role_id = roles.id;
 
 
-# left join user_name(name) | role_name(role)
+# left join user_name | role_name
 SELECT users.name AS user_name,
        roles.name AS role_name
 FROM users
-         LEFT JOIN roles
+         LEFT JOIN roles    # displays users including w/o roles
+             ON users.role_id = roles.id;
+
+
+# right join user_name | role_name
+SELECT users.name AS user_name,
+       roles.name AS role_name
+FROM users
+         RIGHT JOIN roles   # displays roles including w/o users
              ON users.role_id = roles.id;
