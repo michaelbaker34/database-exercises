@@ -70,7 +70,6 @@ FROM pets AS p
     JOIN owners AS o ON o.id = p.owner_id
 GROUP BY o.address;
 
-
 # ========= MINI EXERCISE 2
 # Refactor your previous mini-exercise solution to use table aliases
 SELECT p.age, p.name, o.name
@@ -128,28 +127,24 @@ SELECT *
 FROM users;
 
 # output user name and role for all records with a non-null user name and role name
-
 SELECT users.name, roles.name FROM users
     JOIN roles -- same as INNER JOIN
         ON roles.id = users.role_id;
 
 
 # output user name and their role name for all matches and all users regardless of null roles
-
 SELECT users.name, roles.name
 FROM users LEFT JOIN roles
                      ON roles.id = users.role_id;
 
 
 # output user name and role for all non-null matches and all roles with null users
-
 SELECT users.name, roles.name
 FROM users RIGHT JOIN roles
-                      ON roles.id = users.role_id;
+      ON roles.id = users.role_id;
 
 
 # ========= MINI EXERCISE 3
-
 # !! complete the "Join Example Database" curriculum exercise !!
 
 
@@ -165,65 +160,63 @@ FROM users RIGHT JOIN roles
 # output all current employee names and their current titles
 USE employees;
 
-# SELECT * FROM employees;
-#
-# SELECT * FROM titles;
-#
-# SELECT CONCAT(employees.first_name, ' ', employees.last_name), titles.title
-# FROM employees JOIN titles
-#                     ON titles.emp_no = employees.emp_no
-# WHERE titles.to_date > NOW();
-#
-#
-# # using aliases
-# SELECT CONCAT(e.first_name, ' ', e.last_name), t.title
-# FROM employees AS e JOIN titles as t
-#                          ON t.emp_no = e.emp_no
-# WHERE t.to_date > NOW();
-#
-#
-# # output name and current department for employee number 10001
-# USE employees;
-#
-# SELECT CONCAT(e.first_name, ' ', e.last_name) AS full_name, d.dept_name
-# FROM employees as e
-#          JOIN dept_emp as de
-#               ON de.emp_no = e.emp_no
-#          JOIN departments as d
-#               ON d.dept_no = de.dept_no
-# WHERE de.to_date = '9999-01-01'
-#   AND e.emp_no = 10001;
-#
-#
-#
-#
-#
-# #  ============ OTHER EXAMPLES
-#
-# USE codeup_test_db;
-#
-# # Find the average age of pets for each address
-# SELECT o.address, AVG(p.age) FROM pets AS p
-#                                       JOIN owners AS o ON o.id = p.owner_id
-# GROUP BY o.address;
-#
-#
-# # Output the "{NAME_OF_PET} is owned by {NAME_OF_OWNER}"
-# SELECT CONCAT(pets.name, ' is owned by ', owners.name) AS Message FROM pets
-#                                                                            JOIN owners
-#                                                                                 ON owners.id = pets.owner_id;
-#
-#
-# # Output the total age each pet owner's pets
-# SELECT o.name, SUM(p.age) AS total_pets_age
-# FROM pets AS p
-#          JOIN owners AS o ON o.id = p.owner_id
-# GROUP BY o.name;
-#
-#
-# # List the address with the fewest pets. If a tie occurs, return the alphabetically first address.
-# SELECT owners.address, COUNT(*) FROM owners
-#                                          JOIN pets ON pets.owner_id = owners.id
-# GROUP BY owners.address
-# ORDER BY COUNT(*) ASC, owners.address
-# LIMIT 1;
+SELECT * FROM employees;
+
+SELECT * FROM titles;
+
+SELECT CONCAT(employees.first_name, ' ', employees.last_name), titles.title
+FROM employees
+    JOIN titles
+        ON titles.emp_no = employees.emp_no
+WHERE titles.to_date > NOW();
+
+
+# using aliases
+SELECT CONCAT(e.first_name, ' ', e.last_name), t.title
+FROM employees AS e
+    JOIN titles as t
+        ON t.emp_no = e.emp_no
+WHERE t.to_date > NOW();
+
+
+# output name and current department for employee number 10001
+USE employees;
+
+SELECT CONCAT(e.first_name, ' ', e.last_name) AS full_name, d.dept_name
+FROM employees as e
+    JOIN dept_emp as de
+        ON de.emp_no = e.emp_no
+    JOIN departments as d
+        ON d.dept_no = de.dept_no
+WHERE de.to_date = '9999-01-01'
+    AND e.emp_no = 10001;
+
+
+#  ============ OTHER EXAMPLES
+
+USE codeup_test_db;
+
+# Find the average age of pets for each address
+SELECT o.address, AVG(p.age) FROM pets AS p
+    JOIN owners AS o ON o.id = p.owner_id
+GROUP BY o.address;
+
+
+# Output the "{NAME_OF_PET} is owned by {NAME_OF_OWNER}"
+SELECT CONCAT(pets.name, ' is owned by ', owners.name) AS Message FROM pets
+    JOIN owners
+        ON owners.id = pets.owner_id;
+
+# Output the total age each pet owner's pets
+SELECT o.name, SUM(p.age) AS total_pets_age
+FROM pets AS p
+    JOIN owners AS o ON o.id = p.owner_id
+GROUP BY o.name;
+
+
+# List the address with the fewest pets. If a tie occurs, return the alphabetically first address.
+SELECT owners.address, COUNT(*) FROM owners
+    JOIN pets ON pets.owner_id = owners.id
+GROUP BY owners.address
+ORDER BY COUNT(*) ASC, owners.address
+LIMIT 1;
