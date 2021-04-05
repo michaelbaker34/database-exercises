@@ -86,18 +86,18 @@ DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS roles;
 
 CREATE TABLE roles (
-               id   INT UNSIGNED NOT NULL AUTO_INCREMENT,
-               name VARCHAR(100) NOT NULL,
-               PRIMARY KEY (id)
+            id   INT UNSIGNED NOT NULL AUTO_INCREMENT,
+            name VARCHAR(100) NOT NULL,
+            PRIMARY KEY (id)
 );
 
 CREATE TABLE users (
-               id      INT UNSIGNED NOT NULL AUTO_INCREMENT,
-               name    VARCHAR(100) NOT NULL,
-               email   VARCHAR(100) NOT NULL,
-               role_id INT UNSIGNED DEFAULT NULL,
-               PRIMARY KEY (id),
-               FOREIGN KEY (role_id) REFERENCES roles (id)
+            id      INT UNSIGNED NOT NULL AUTO_INCREMENT,
+            name    VARCHAR(100) NOT NULL,
+            email   VARCHAR(100) NOT NULL,
+            role_id INT UNSIGNED DEFAULT NULL,
+            PRIMARY KEY (id),
+FOREIGN KEY (role_id) REFERENCES roles (id)
 );
 
 INSERT INTO roles (name)
@@ -127,21 +127,24 @@ SELECT *
 FROM users;
 
 # output user name and role for all records with a non-null user name and role name
-SELECT users.name, roles.name FROM users
+SELECT users.name, roles.name
+FROM users
     JOIN roles -- same as INNER JOIN
         ON roles.id = users.role_id;
 
 
 # output user name and their role name for all matches and all users regardless of null roles
 SELECT users.name, roles.name
-FROM users LEFT JOIN roles
-                     ON roles.id = users.role_id;
+FROM users
+    LEFT JOIN roles
+        ON roles.id = users.role_id;
 
 
 # output user name and role for all non-null matches and all roles with null users
 SELECT users.name, roles.name
-FROM users RIGHT JOIN roles
-      ON roles.id = users.role_id;
+FROM users
+    RIGHT JOIN roles
+        ON roles.id = users.role_id;
 
 
 # ========= MINI EXERCISE 3
@@ -191,7 +194,6 @@ FROM employees as e
 WHERE de.to_date = '9999-01-01'
     AND e.emp_no = 10001;
 
-
 #  ============ OTHER EXAMPLES
 
 USE codeup_test_db;
@@ -206,6 +208,7 @@ GROUP BY o.address;
 SELECT CONCAT(pets.name, ' is owned by ', owners.name) AS Message FROM pets
     JOIN owners
         ON owners.id = pets.owner_id;
+
 
 # Output the total age each pet owner's pets
 SELECT o.name, SUM(p.age) AS total_pets_age

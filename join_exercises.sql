@@ -35,3 +35,48 @@ VALUES ('jack', 'jack@example.com', 2),
 SELECT r.name, COUNT(u.role_id) as Users FROM users as u
     RIGHT JOIN roles as r ON u.role_id = r.id
 GROUP BY r.id;
+
+USE employees;
+
+# write a query that shows each department along with the name of the current manager
+SELECT departments.dept_name AS 'Department Name',
+       CONCAT(employees.first_name, ' ', employees.last_name) AS 'Department Manager'
+FROM employees
+    JOIN dept_manager ON employees.emp_no = dept_manager.emp_no
+    JOIN departments ON dept_manager.dept_no = departments.dept_no
+WHERE dept_manager.to_date = '9999-01-01'
+ORDER BY dept_name;
+
+
+# find name of all departments currently managed by women
+SELECT departments.dept_name AS 'Department Name',
+       CONCAT(employees.first_name, ' ', employees.last_name) AS 'Department Manager'
+FROM employees
+     JOIN dept_manager ON employees.emp_no = dept_manager.emp_no
+     JOIN departments ON dept_manager.dept_no = departments.dept_no
+WHERE dept_manager.to_date > now() AND employees.gender = 'F'
+ORDER BY dept_name;
+
+
+# find titles of employees working in Customer Service
+SELECT titles.title AS 'title', COUNT(titles.emp_no) AS 'Title'
+FROM titles
+    JOIN dept_emp ON titles.emp_no = dept_emp.emp_no
+    JOIN departments ON dept_emp.dept_no = departments.dept_no
+WHERE departments.dept_no = 'd009'
+  AND dept_emp.to_date > NOW()
+  AND titles.to_date > NOW()
+GROUP BY titles.title;
+
+
+# find salary of all managers
+SELECT departments.dept_name AS 'Department Name',
+       CONCAT(employees.first_name, ' ', employees.last_name) AS 'Department Manager',
+       salaries.salary AS 'Salary'
+FROM employees
+        JOIN dept_manager ON employees.emp_no = dept_manager.emp_no
+        JOIN departments ON dept_manager.dept_no = departments.dept_no
+        JOIN salaries ON employees.emp_no = salaries.emp_no
+WHERE dept_manager.to_date > now()
+    AND salaries.to_date > now()
+ORDER BY salary;
